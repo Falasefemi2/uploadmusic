@@ -14,6 +14,8 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 
 const formSchema = z.object({
@@ -35,6 +37,10 @@ const formSchema = z.object({
 
 
 export default function MusicUploadForm() {
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {

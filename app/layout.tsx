@@ -7,6 +7,8 @@ import {
   ClerkProvider
 } from '@clerk/nextjs'
 import AppHeader from "@/components/app-header";
+import { Toaster } from "@/components/ui/sonner"
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -40,6 +42,7 @@ export default function RootLayout({
             <SidebarInset>
               <AppHeader />
               {children}
+              <Toaster />
             </SidebarInset>
           </SidebarProvider>
         </body>
