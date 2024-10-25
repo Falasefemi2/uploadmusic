@@ -15,6 +15,13 @@
       "when": 1729852533484,
       "tag": "0001_lively_retro_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1729871196487,
+      "tag": "0002_rainy_daimon_hellstrom",
+      "breakpoints": true
     }
   ]
 }

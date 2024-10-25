@@ -20,12 +20,12 @@ export default async function AppHeader() {
     if (user && userId) {
         try {
             const existingUser = await db.query.users.findFirst({
-                where: (users, { eq }) => eq(users.clerkId, userId) // Use clerkId for finding users
+                where: (users, { eq }) => eq(users.clerkId, userId)
             });
 
             if (!existingUser) {
                 await db.insert(users).values({
-                    clerkId: userId, // Store the Clerk user ID here
+                    clerkId: userId,
                     email: user.emailAddresses[0].emailAddress ?? "",
                     image: user.imageUrl ?? "",
                     name: user.fullName ?? "",
@@ -42,7 +42,7 @@ export default async function AppHeader() {
                         image: user.imageUrl ?? "",
                         name: user.fullName ?? "",
                     })
-                    .where(eq(users.clerkId, userId)); // Use clerkId in update condition
+                    .where(eq(users.clerkId, userId));
             }
         } catch (error) {
             console.error("Error managing user:", error);

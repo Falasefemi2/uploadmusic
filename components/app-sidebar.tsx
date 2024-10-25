@@ -16,24 +16,18 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
   Drawer,
   DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { useIsMobile } from "@/hooks/use-mobile"
+import MusicUploadForm from "./app-songform"
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -52,20 +46,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </DrawerTrigger>
           <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Create Playlist</DrawerTitle>
-              <DrawerDescription>
-                Give your playlist a name and start adding songs.
-              </DrawerDescription>
-            </DrawerHeader>
-            <div className="p-4">
-              <input
-                type="text"
-                placeholder="Playlist name"
-                className="w-full p-2 border rounded"
-              />
-              <Button className="mt-4 w-full">Create</Button>
-            </div>
+            <MusicUploadForm />
           </DrawerContent>
         </Drawer>
       )
@@ -79,20 +60,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </DialogTrigger>
           <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Create Playlist</DialogTitle>
-              <DialogDescription>
-                Give your playlist a name and start adding songs.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="p-4">
-              <input
-                type="text"
-                placeholder="Playlist name"
-                className="w-full p-2 border rounded"
-              />
-              <Button className="mt-4 w-full">Create</Button>
-            </div>
+            <MusicUploadForm />
           </DialogContent>
         </Dialog>
       )
