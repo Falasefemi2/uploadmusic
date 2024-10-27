@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form"
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { createSong } from '@/app/action'
+import { toast } from 'sonner'
 
 
 const formSchema = z.object({
@@ -51,10 +53,30 @@ export default function MusicUploadForm() {
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        try {
+            setIsLoading(true);
+
+            const result = await createSong({
+                artistName: values.artistName,
+                musicTitle: values.musicTitle,
+                songImage: values.songImage,
+                songFile: values.songFile
+            });
+
+            if (result?.data?.success) {
+                toast.success("Song uploaded successfully");
+                form.reset();
+                router.push("/");
+            }
+        } catch (error) {
+            // Define result here to avoid the error
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const errorMessage = (error as any)?.message || "An error occurred.";
+            toast.error(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -91,17 +113,18 @@ export default function MusicUploadForm() {
                 <FormField
                     control={form.control}
                     name="songImage"
-                    render={({ field: { onChange, value, ...field } }) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Cover Image</FormLabel>
                             <FormControl>
                                 <Input
                                     type="file"
                                     accept="image/jpeg,image/png,image/webp"
-                                    onChange={(e) => {
-                                        onChange(e.target.files?.[0])
-                                    }}
-                                    {...field}
+                                    onChange={(e) => field.onChange(e.target.files?.[0])}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    ref={field.ref}
+                                    disabled={field.disabled}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -112,17 +135,18 @@ export default function MusicUploadForm() {
                 <FormField
                     control={form.control}
                     name="songFile"
-                    render={({ field: { onChange, value, ...field } }) => (
+                    render={({ field }) => (
                         <FormItem>
                             <FormLabel>Song File</FormLabel>
                             <FormControl>
                                 <Input
                                     type="file"
                                     accept="audio/mpeg,audio/wav"
-                                    onChange={(e) => {
-                                        onChange(e.target.files?.[0])
-                                    }}
-                                    {...field}
+                                    onChange={(e) => field.onChange(e.target.files?.[0])}
+                                    onBlur={field.onBlur}
+                                    name={field.name}
+                                    ref={field.ref}
+                                    disabled={field.disabled}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -130,8 +154,8 @@ export default function MusicUploadForm() {
                     )}
                 />
 
-                <Button type="submit" className="w-full">
-                    Upload Song
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? "Uploading..." : "Upload Song"}
                 </Button>
 
 
