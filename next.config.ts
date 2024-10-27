@@ -9,6 +9,10 @@ const nextConfig = {
       bodySizeLimit: "5mb", // Set this to your desired limit
     },
   },
+
+  images: {
+    remotePatterns: [{ hostname: "utfs.io" }],
+  },
 };
 
 export default nextConfig;

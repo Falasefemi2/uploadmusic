@@ -29,7 +29,7 @@ const schema = z.object({
     ),
   songFile: z
     .instanceof(File)
-    .refine((file) => file.size <= 10000000, `Max file size is 10MB.`)
+    .refine((file) => file.size <= 10000000, `Max file size is 5MB.`)
     .refine(
       (file) => ["audio/mpeg", "audio/wav"].includes(file.type),
       "Only .mp3 and .wav formats are supported."
@@ -101,3 +101,8 @@ export const createSong = actionClient
       }
     }
   );
+
+export const getSongs = actionClient.action(async () => {
+  const songs = await db.query.songs.findMany();
+  return songs;
+});
