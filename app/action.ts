@@ -107,3 +107,26 @@ export const getSongs = actionClient.action(async () => {
   const songs = await db.query.songs.findMany();
   return songs;
 });
+
+const getSongsSchema = z.object({
+  musicName: z
+    .string()
+    .min(1, { message: "Music name must be at least 1 characters." }),
+});
+
+type Song = typeof songs.$inferSelect;
+
+export const getSongsByTitle = actionClient
+  .schema(getSongsSchema)
+  .action(async ({ parsedInput: { musicName } }): Promise<Song[]> => {
+    try {
+      const foundSongs = await db.query.songs.findMany({
+        where: eq(songs.title, musicName),
+      });
+
+      return foundSongs;
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+      throw new Error("Failed to fetch songs");
+    }
+  });

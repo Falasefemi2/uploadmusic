@@ -38,26 +38,25 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <NextSSRPlugin
-            routerConfig={extractRouterConfig(ourFileRouter)}
-          />
-
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarInset>
-              <AppHeader />
-              <NuqsAdapter>
+      <NuqsAdapter>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <NextSSRPlugin
+              routerConfig={extractRouterConfig(ourFileRouter)}
+            />
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>
+                <AppHeader />
                 {children}
-              </NuqsAdapter>
-              <Toaster />
-            </SidebarInset>
-          </SidebarProvider>
-        </body>
-      </html>
+                <Toaster />
+              </SidebarInset>
+            </SidebarProvider>
+          </body>
+        </html>
+      </NuqsAdapter>
     </ClerkProvider>
   );
 }
