@@ -90,6 +90,7 @@ export const createSong = actionClient
         return {
           success: true,
           song: newSongs[0],
+          message: "Song uploaded successfully",
         };
       } catch (error) {
         console.error("Error creating song:", error);

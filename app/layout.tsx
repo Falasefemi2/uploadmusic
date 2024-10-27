@@ -11,6 +11,8 @@ import { Toaster } from "@/components/ui/sonner"
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
+
 
 
 const geistSans = localFont({
@@ -48,7 +50,9 @@ export default function RootLayout({
             <AppSidebar />
             <SidebarInset>
               <AppHeader />
-              {children}
+              <NuqsAdapter>
+                {children}
+              </NuqsAdapter>
               <Toaster />
             </SidebarInset>
           </SidebarProvider>

@@ -1,34 +1,6 @@
-// interface Song {
-//     id: string;
-//     title: string;
-//     artist: string;
-//     songUrl: string;
-//     imageUrl: string | null;
-// }
-
-// interface AllSongProps {
-//     songs: Song[] | null;
-// }
-
-// export default function AllSong({ songs }: AllSongProps) {
-//     if (!songs || songs.length === 0) {
-//         return <div>No songs found</div>;
-//     }
-
-//     return (
-//         <div>
-//             {songs.map((song) => (
-//                 <div key={song.id}>
-//                     <h3>{song.title}</h3>
-//                     <p>Artist: {song.artist}</p>
-//                 </div>
-//             ))}
-//         </div>
-//     );
-// }
 "use client";
 
-import { SongItem } from "./app-songitem"
+import SongItem from "./app-songitem";
 
 interface Song {
     id: string
@@ -53,10 +25,13 @@ export default function AllSong({ songs }: AllSongProps) {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {songs.map((song) => (
-                <SongItem key={song.id} song={song} onPlay={handlePlay} />
-            ))}
+        <div className="container mx-auto px-4 py-8">
+            <h2 className="text-2xl font-bold mb-6">All Songs</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {songs.map((song) => (
+                    <SongItem key={song.id} song={song} onPlay={handlePlay} />
+                ))}
+            </div>
         </div>
     )
 }

@@ -72,7 +72,7 @@ export default function MusicUploadForm() {
             })
 
             if (result?.data?.success) {
-                toast.success('Song uploaded successfully')
+                toast.success(result?.data?.message)
                 form.reset()
                 router.push('/')
             }
@@ -116,75 +116,6 @@ export default function MusicUploadForm() {
                             </FormItem>
                         )}
                     />
-
-                    {/* <FormField
-                        control={form.control}
-                        name="songImage"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Cover Image</FormLabel>
-                                <FormControl>
-                                    <div className="flex items-center justify-center w-full">
-                                        <label
-                                            htmlFor="songImage"
-                                            className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                                        >
-                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <Upload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" />
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                    <span className="font-semibold">Click to upload</span> or drag and drop
-                                                </p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or WebP (MAX. 2MB)</p>
-                                            </div>
-                                            <Input
-                                                id="songImage"
-                                                type="file"
-                                                accept="image/jpeg,image/png,image/webp"
-                                                className="hidden"
-                                                onChange={(e) => field.onChange(e.target.files?.[0])}
-                                            />
-                                        </label>
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        control={form.control}
-                        name="songFile"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Song File</FormLabel>
-                                <FormControl>
-                                    <div className="flex items-center justify-center w-full">
-                                        <label
-                                            htmlFor="songFile"
-                                            className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                                        >
-                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <Upload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" />
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                    <span className="font-semibold">Click to upload</span> or drag and drop
-                                                </p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV (MAX. 10MB)</p>
-                                            </div>
-                                            <Input
-                                                id="songFile"
-                                                type="file"
-                                                accept="audio/mpeg,audio/wav"
-                                                className="hidden"
-                                                onChange={(e) => field.onChange(e.target.files?.[0])}
-                                            />
-                                        </label>
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    /> */}
-
 
                     <FormField
                         control={form.control}
