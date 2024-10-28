@@ -9,7 +9,7 @@ import { UTApi } from "uploadthing/server";
 import { db } from "./db";
 import { songs, users } from "./db/schema";
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { eq, like } from "drizzle-orm";
 
 const utapi = new UTApi();
 
@@ -121,7 +121,7 @@ export const getSongsByTitle = actionClient
   .action(async ({ parsedInput: { musicName } }): Promise<Song[]> => {
     try {
       const foundSongs = await db.query.songs.findMany({
-        where: eq(songs.title, musicName),
+        where: like(songs.title, `%${musicName}%`),
       });
 
       return foundSongs;

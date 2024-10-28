@@ -11,6 +11,7 @@ import { UserButton } from "@clerk/nextjs"
 import AppSearch from "./app-search"
 
 
+
 export default async function AppHeader() {
     const user = await currentUser();
     const { userId } = await auth();

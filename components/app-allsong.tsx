@@ -20,7 +20,6 @@ export default function AllSong({ songs }: AllSongProps) {
     }
 
     const handlePlay = (song: Song) => {
-        // Implement play functionality here
         console.log(`Playing: ${song.title} by ${song.artist}`)
     }
 
