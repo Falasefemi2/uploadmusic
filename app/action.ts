@@ -10,6 +10,7 @@ import { db } from "./db";
 import { songs, users } from "./db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, like } from "drizzle-orm";
+import { Song } from "./types/Song";
 
 const utapi = new UTApi();
 
@@ -80,8 +81,8 @@ export const createSong = actionClient
             userId: dbUser.id,
             title: musicTitle,
             artist: artistName,
-            songUrl: audioResponse[0]?.data?.url ?? "", // Accessing the url from data
-            imageUrl: imageResponse[0]?.data?.url ?? "", // Accessing the url from data
+            songUrl: audioResponse[0]?.data?.url ?? "",
+            imageUrl: imageResponse[0]?.data?.url ?? "",
           })
           .returning();
 
@@ -103,30 +104,21 @@ export const createSong = actionClient
     }
   );
 
-export const getSongs = actionClient.action(async () => {
-  const songs = await db.query.songs.findMany();
-  return songs;
-});
-
-const getSongsSchema = z.object({
-  musicName: z
-    .string()
-    .min(1, { message: "Music name must be at least 1 characters." }),
-});
-
-type Song = typeof songs.$inferSelect;
-
-export const getSongsByTitle = actionClient
-  .schema(getSongsSchema)
-  .action(async ({ parsedInput: { musicName } }): Promise<Song[]> => {
+export const getSongs = actionClient
+  .schema(
+    z.object({
+      musicName: z.string().optional(),
+    })
+  )
+  .action(async ({ parsedInput: { musicName } }): Promise<Song[] | null> => {
     try {
       const foundSongs = await db.query.songs.findMany({
-        where: like(songs.title, `%${musicName}%`),
+        where: musicName ? like(songs.title, `%${musicName}%`) : undefined,
       });
 
-      return foundSongs;
+      return foundSongs || [];
     } catch (error) {
       console.error("Error fetching songs:", error);
-      throw new Error("Failed to fetch songs");
+      return [];
     }
   });

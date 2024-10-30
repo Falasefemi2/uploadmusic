@@ -4,12 +4,14 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 import { getSongs } from "./action";
+import { Song } from "./types/Song";
+
 
 export default async function Page() {
 
-  const result = await getSongs();
-  const songs = result?.data ?? null;
-
+  const result = await getSongs({});
+  const songs = (result?.data as Song[]) ?? [];
+ 
   return (
     <SidebarProvider>
       <SidebarInset>

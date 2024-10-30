@@ -9,24 +9,11 @@ import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 
 
-
-
-interface Song {
-    id: string
-    title: string
-    artist: string
-    songUrl: string
-    imageUrl: string | null
-}
 const AppSearch = () => {
     const [searchQuery, setSearchQuery] = useQueryState('q', parseAsString
         .withOptions({ shallow: false })
         .withDefault("")
     );
-
-
-
-
 
     return (
         <div className="w-full max-w-2xl space-y-4">
