@@ -10,7 +10,6 @@ import { db } from "./db";
 import { songs, users } from "./db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, like } from "drizzle-orm";
-// import { Song } from "./types/Song";
 
 const utapi = new UTApi();
 

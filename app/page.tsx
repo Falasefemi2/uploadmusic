@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/sidebar"
 import { getSongs } from "./action";
 import { Song } from "./types/Song";
+import AppText from "@/components/app-text";
 
 
 export default async function Page() {
@@ -15,6 +16,7 @@ export default async function Page() {
   return (
     <SidebarProvider>
       <SidebarInset>
+        <AppText text="All Songs" />
         <AllSong songs={songs} />
       </SidebarInset>
     </SidebarProvider>
