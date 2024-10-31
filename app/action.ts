@@ -10,7 +10,7 @@ import { db } from "./db";
 import { songs, users } from "./db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, like } from "drizzle-orm";
-import { Song } from "./types/Song";
+// import { Song } from "./types/Song";
 
 const utapi = new UTApi();
 
@@ -110,15 +110,21 @@ export const getSongs = actionClient
       musicName: z.string().optional(),
     })
   )
-  .action(async ({ parsedInput: { musicName } }): Promise<Song[] | null> => {
+  .action(async ({ parsedInput: { musicName } }) => {
     try {
       const foundSongs = await db.query.songs.findMany({
         where: musicName ? like(songs.title, `%${musicName}%`) : undefined,
       });
 
-      return foundSongs || [];
+      return {
+        success: true,
+        data: foundSongs ?? [],
+      };
     } catch (error) {
       console.error("Error fetching songs:", error);
-      return [];
+      return {
+        success: false,
+        data: [],
+      };
     }
   });

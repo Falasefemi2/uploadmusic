@@ -1,27 +1,21 @@
 "use client";
 
+import { Song } from "@/app/types/Song";
 import SongItem from "./app-songitem";
 
-interface Song {
-    id: string
-    title: string
-    artist: string
-    songUrl: string
-    imageUrl: string | null
-}
-
 interface AllSongProps {
-    songs: Song[] | null
+    songs: Song[];
 }
 
 export default function AllSong({ songs }: AllSongProps) {
-    if (!songs || songs.length === 0) {
-        return <div className="text-center text-gray-500 py-8">No songs found</div>
+    if (!Array.isArray(songs) || songs.length === 0) {
+        return <div className="text-center text-gray-500 py-8">No songs found</div>;
     }
 
+
     const handlePlay = (song: Song) => {
-        console.log(`Playing: ${song.title} by ${song.artist}`)
-    }
+        console.log(`Playing: ${song.title} by ${song.artist}`);
+    };
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -32,5 +26,5 @@ export default function AllSong({ songs }: AllSongProps) {
                 ))}
             </div>
         </div>
-    )
+    );
 }

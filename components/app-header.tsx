@@ -8,7 +8,7 @@ import { db } from "@/app/db"
 import { users } from "@/app/db/schema"
 import { eq } from "drizzle-orm"
 import { UserButton } from "@clerk/nextjs"
-import AppSearch from "./app-search"
+
 
 
 
@@ -54,7 +54,6 @@ export default async function AppHeader() {
             <div className="flex flex-1 items-center gap-4">
                 <SidebarTrigger />
                 <Separator orientation="vertical" className="h-6" />
-                <AppSearch />
             </div>
             <div className="flex items-center gap-2">
                 {user ? (

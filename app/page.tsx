@@ -10,8 +10,8 @@ import { Song } from "./types/Song";
 export default async function Page() {
 
   const result = await getSongs({});
-  const songs = (result?.data as Song[]) ?? [];
- 
+  const songs: Song[] = result?.data?.data ?? [];
+
   return (
     <SidebarProvider>
       <SidebarInset>
