@@ -12,6 +12,8 @@ import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { dark } from '@clerk/themes'
+
 
 
 
@@ -37,7 +39,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <NuqsAdapter>
         <html lang="en">
           <body

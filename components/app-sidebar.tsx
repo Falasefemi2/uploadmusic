@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import { Home, Search, Plus, Music } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 
 import {
@@ -28,19 +28,35 @@ import {
 } from "@/components/ui/drawer"
 import { useIsMobile } from "@/hooks/use-mobile"
 import MusicUploadForm from "./app-songform"
+import { useUser } from '@clerk/nextjs'
+
+
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
   const isMobile = useIsMobile()
+  const { isSignedIn } = useUser()
+
+  const router = useRouter()
+
+  const handlePlaylistClick = (e: React.MouseEvent) => {
+    if (!isSignedIn) {
+      e.preventDefault()
+      router.push('/sign-in')
+      return
+    }
+    setOpen(true)
+  }
+
 
   const renderPlaylistCreation = () => {
     if (isMobile) {
       return (
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <SidebarMenuButton>
+            <SidebarMenuButton onClick={handlePlaylistClick}>
               <Plus className="h-4 w-4 mr-2" />
               Create Playlist
             </SidebarMenuButton>
@@ -54,7 +70,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       return (
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <SidebarMenuButton>
+            <SidebarMenuButton onClick={handlePlaylistClick}>
               <Plus className="h-4 w-4 mr-2" />
               Create Playlist
             </SidebarMenuButton>

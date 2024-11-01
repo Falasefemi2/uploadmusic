@@ -2,7 +2,7 @@
 
 import { Song } from "@/app/types/Song";
 import SongItem from "./app-songitem";
-// import AppText from "./app-text";
+
 
 interface AllSongProps {
     songs: Song[];
