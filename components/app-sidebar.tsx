@@ -2,7 +2,7 @@
 'use client'
 
 import * as React from "react"
-import { Home, Search, Plus, Music } from "lucide-react"
+import { Home, Search, Plus, Music, User } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 
@@ -33,6 +33,7 @@ import { useUser } from '@clerk/nextjs'
 
 
 
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
@@ -49,6 +50,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
     setOpen(true)
   }
+
+
 
 
   const renderPlaylistCreation = () => {
@@ -115,6 +118,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={pathname === "/usersong"}>
+              <Link href="/usersong">
+                <User className="h-4 w-4 mr-2" />
+                Your Songs
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
         <SidebarSeparator />
         <SidebarMenu>
@@ -122,6 +133,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {renderPlaylistCreation()}
           </SidebarMenuItem>
         </SidebarMenu>
+        <SidebarSeparator />
+
+
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

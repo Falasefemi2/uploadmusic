@@ -127,3 +127,40 @@ export const getSongs = actionClient
       };
     }
   });
+
+export const getSongById = actionClient
+  .schema(
+    z.object({
+      id: z.union([z.string(), z.number()]), // Remove .transform here
+    })
+  )
+  .action(async ({ parsedInput: { id } }) => {
+    try {
+      // Ensure id is a string before querying
+      const songId = id.toString();
+
+      const song = await db.query.songs.findFirst({
+        where: eq(songs.id, songId), // id is now a string
+      });
+
+      if (!song) {
+        return {
+          success: false,
+          error: "Song not found",
+          data: null,
+        };
+      }
+
+      return {
+        success: true,
+        data: song,
+      };
+    } catch (error) {
+      console.error("Error fetching song by id:", error);
+      return {
+        success: false,
+        error: "Failed to fetch song",
+        data: null,
+      };
+    }
+  });
