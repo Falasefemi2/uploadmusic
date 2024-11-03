@@ -13,6 +13,8 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { dark } from '@clerk/themes'
+import { cookies } from "next/headers"
+
 
 
 
@@ -33,11 +35,15 @@ export const metadata: Metadata = {
   description: "Upload your music and share it with the world",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
+
   return (
     <ClerkProvider
       appearance={{
@@ -52,7 +58,7 @@ export default function RootLayout({
             <NextSSRPlugin
               routerConfig={extractRouterConfig(ourFileRouter)}
             />
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={defaultOpen}>
               <AppSidebar />
               <SidebarInset>
                 <AppHeader />
