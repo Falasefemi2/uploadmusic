@@ -15,6 +15,8 @@ interface SongItemProps {
     isPause?: boolean;
 }
 
+
+
 export default function SongItem({ song, onPlay, isPlaying, isLoading, isPause = false }: SongItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 

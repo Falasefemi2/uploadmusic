@@ -73,28 +73,43 @@ export default function AllSong({ songs }: AllSongProps) {
         }
     };
 
-    return (
-        <div className="mx-auto px-4 py-8">
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {songs.map((song) => (
-                    <SongItem
-                        key={song.id}
-                        song={song}
-                        onPlay={handlePlay}
-                        isPlaying={isPlaying && currentSong?.id === song.id}
-                        isLoading={isLoading && !currentSong && song.id === songs.find(s => s.songUrl === song.songUrl)?.id}
-                        isPause={!isPlaying && currentSong?.id === song.id}  // Add this line
-                    />
-                ))}
-            </div>
+    const handlePrevious = () => {
+        const currentIndex = songs.findIndex(song => song.id === currentSong?.id)
+        if (currentIndex > 0) {
+            setCurrentSong(songs[currentIndex - 1])
+        }
+    }
 
-            {/* Audio Player */}
+    const handleNext = () => {
+        const currentIndex = songs.findIndex(song => song.id === currentSong?.id)
+        if (currentIndex < songs.length - 1) {
+            setCurrentSong(songs[currentIndex + 1])
+        }
+    }
+
+
+    return (
+        <div className="min-h-screen">
+            <div className="max-w-7xl mx-auto px-4 py-8 pb-24 overflow-y-auto" style={{ height: 'calc(100vh - 72px)' }}>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {songs.map((song) => (
+                        <SongItem
+                            key={song.id}
+                            song={song}
+                            onPlay={handlePlay}
+                            isPlaying={isPlaying && currentSong?.id === song.id}
+                            isLoading={isLoading && !currentSong && song.id === songs.find(s => s.songUrl === song.songUrl)?.id}
+                            isPause={!isPlaying && currentSong?.id === song.id}
+                        />
+                    ))}
+                </div>
+            </div>
             <AudioPlayer
                 currentSong={currentSong}
-            // onPrevious={handlePrevious}
-            // onNext={handleNext}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
             />
-
         </div>
+
     );
 }

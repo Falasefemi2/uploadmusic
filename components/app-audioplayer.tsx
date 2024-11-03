@@ -7,7 +7,6 @@ import { Slider } from "@/components/ui/slider"
 import { Song } from '@/app/types/Song'
 import Image from 'next/image'
 
-
 interface AudioPlayerProps {
     currentSong: Song | null
     onPrevious?: () => void
@@ -103,13 +102,13 @@ export default function AudioPlayer({ currentSong, onPrevious, onNext }: AudioPl
 
                 <div className="flex flex-col items-center flex-1 gap-1 px-4">
                     <div className="flex items-center gap-4">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onPrevious}>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onPrevious} aria-label="Previous song">
                             <SkipBack className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={togglePlayPause}>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={togglePlayPause} aria-label={isPlaying ? "Pause" : "Play"}>
                             {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onNext}>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onNext} aria-label="Next song">
                             <SkipForward className="h-4 w-4" />
                         </Button>
                     </div>
@@ -123,6 +122,7 @@ export default function AudioPlayer({ currentSong, onPrevious, onNext }: AudioPl
                             step={1}
                             onValueChange={handleTimeChange}
                             className="w-full"
+                            aria-label="Seek"
                         />
                         <span className="text-xs w-12 text-muted-foreground">
                             {formatTime(duration)}
@@ -131,13 +131,14 @@ export default function AudioPlayer({ currentSong, onPrevious, onNext }: AudioPl
                 </div>
 
                 <div className="flex items-center gap-2 w-[20%] min-w-[120px] justify-end">
-                    <Volume2 className="h-4 w-4" />
+                    <Volume2 className="h-4 w-4" aria-hidden="true" />
                     <Slider
                         value={[volume]}
                         max={1}
                         step={0.01}
                         onValueChange={handleVolumeChange}
                         className="w-24"
+                        aria-label="Volume"
                     />
                 </div>
 
