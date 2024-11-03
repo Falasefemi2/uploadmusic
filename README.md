@@ -1,10 +1,10 @@
 <!-- @format -->
 
-# @UploadMusic
+# UploadMusic
 
 ## Overview
 
-`@UploadMusic` is a versatile application designed to streamline [describe the main functionality, e.g., task management, data processing, etc.]. It provides users with [explain the problem it solves or the value it offers, e.g., efficient workflows, easy data access, etc.].
+`UploadMusic` is a versatile application designed to streamline [describe the main functionality, e.g., task management, data processing, etc.]. It provides users with [explain the problem it solves or the value it offers, e.g., efficient workflows, easy data access, etc.].
 
 ## Features
 
@@ -15,7 +15,7 @@
 
 ## Installation
 
-To install `@app`, follow these steps:
+To install `UploadMusic`, follow these steps:
 
 1. Ensure you have [prerequisites, e.g., Node.js, Python, etc.] installed.
 2. Run the following command to install the package:
@@ -24,7 +24,7 @@ yarn install
 
 ## Usage
 
-Here are some examples of how to use `@app` in your project:
+Here are some examples of how to use `UploadMusic` in your project:
 
 ```
 import { mainFunction } from '@app';
@@ -36,7 +36,7 @@ For more detailed usage, refer to the [documentation](link-to-documentation).
 
 ## Contributing
 
-We welcome contributions! To contribute to `@app`, please follow these guidelines:
+We welcome contributions! To contribute to `UploadMusic`, please follow these guidelines:
 
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
