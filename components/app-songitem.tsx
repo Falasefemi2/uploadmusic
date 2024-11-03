@@ -6,21 +6,17 @@ import { PlayButton } from "./app-playbutton"
 import Image from "next/image"
 import { Song } from "@/app/types/Song"
 
-// interface Song {
-//     id: string
-//     title: string
-//     artist: string
-//     songUrl: string
-//     imageUrl: string | null
-// }
 
 interface SongItemProps {
-    song: Song
-    onPlay: (song: Song) => void
+    song: Song;
+    onPlay: (song: Song) => void;
+    isPlaying: boolean;
+    isLoading: boolean;
+    isPause?: boolean;
 }
 
-export default function SongItem({ song, onPlay }: SongItemProps) {
-    const [isHovered, setIsHovered] = useState(false)
+export default function SongItem({ song, onPlay, isPlaying, isLoading, isPause = false }: SongItemProps) {
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <Card
@@ -44,7 +40,12 @@ export default function SongItem({ song, onPlay }: SongItemProps) {
                     )}
                     {isHovered && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-md">
-                            <PlayButton onClick={() => onPlay(song)} />
+                            <PlayButton
+                                onClick={() => !isLoading && onPlay(song)} // Avoid clicking while loading
+                                isPlaying={isPlaying}
+                                isLoading={isLoading}
+                                isPause={isPause}
+                            />
                         </div>
                     )}
                 </div>
@@ -54,5 +55,5 @@ export default function SongItem({ song, onPlay }: SongItemProps) {
                 </div>
             </CardContent>
         </Card>
-    )
+    );
 }
