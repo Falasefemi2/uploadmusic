@@ -99,7 +99,7 @@ export default function AllSong({ songs }: AllSongProps) {
                             onPlay={handlePlay}
                             isPlaying={isPlaying && currentSong?.id === song.id}
                             isLoading={isLoading && !currentSong && song.id === songs.find(s => s.songUrl === song.songUrl)?.id}
-                            isPause={!isPlaying && currentSong?.id === song.id}
+                            isPause={isPlaying && currentSong?.id === song.id}
                         />
                     ))}
                 </div>
